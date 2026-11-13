@@ -1,30 +1,54 @@
-
-// MOBILE NAVIGATION
-
+// Navigation uses native anchor scrolling so touch, keyboard and browser history stay natural.
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 
+function setMenuOpen(open) {
+  navLinks.classList.toggle("open", open);
+  menuToggle.classList.toggle("active", open);
+  menuToggle.setAttribute("aria-expanded", String(open));
+  menuToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+}
+
 menuToggle.addEventListener("click", () => {
-  const isOpen = navLinks.classList.toggle("open");
-
-  menuToggle.classList.toggle("active");
-  menuToggle.setAttribute("aria-expanded", isOpen);
-  menuToggle.setAttribute(
-    "aria-label",
-    isOpen ? "Close navigation" : "Open navigation"
-  );
+  setMenuOpen(menuToggle.getAttribute("aria-expanded") !== "true");
 });
 
-// CLOSE MENU WHEN A LINK IS CLICKED
-
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.classList.remove("open");
-    menuToggle.classList.remove("active");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open navigation");
-  });
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => setMenuOpen(false));
 });
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") {
+    setMenuOpen(false);
+    menuToggle.focus();
+  }
+});
+
+document.addEventListener("click", event => {
+  if (!event.target.closest(".navbar")) setMenuOpen(false);
+});
+
+const mobileLayout = window.matchMedia("(max-width: 760px)");
+mobileLayout.addEventListener("change", () => setMenuOpen(false));
+
+// Track the section nearest the header without running work on every scroll event.
+const sections = [...document.querySelectorAll("main section[id]")];
+const navigation = [...navLinks.querySelectorAll("a")];
+if ("IntersectionObserver" in window) {
+  const visibleSections = new Set();
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) visibleSections.add(entry.target);
+      else visibleSections.delete(entry.target);
+    });
+    const current = sections.find(section => visibleSections.has(section));
+    navigation.forEach(link => {
+      if (current && link.hash === "#" + current.id) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+  }, { rootMargin: "-90px 0px -45% 0px", threshold: 0 });
+  sections.forEach(section => observer.observe(section));
+}
 
 // ENQUIRY FORM
 
@@ -56,7 +80,7 @@ contactForm.addEventListener("submit", event => {
 
   // Demonstration success state
   formMessage.textContent =
-    "Thanks, " + name + "! Your demonstration enquiry has been completed.";
+    "Thanks, " + name + "! This was a demo submission; no enquiry has been sent.";
 
   formMessage.className = "form-message success";
 
