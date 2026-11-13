@@ -1321,3 +1321,83 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Consistent vector artwork and refined demo presentation */
+:root { --header-height: 87px; --grey: #566577; }
+html { scroll-padding-top: var(--header-height); }
+body { -webkit-text-size-adjust: 100%; }
+.icon { width: 20px; height: 20px; display: inline-block; flex-shrink: 0; vertical-align: middle; }
+.logo-icon { display: flex; }
+.logo-icon .icon { width: 38px; height: 38px; }
+.bottom-dot .icon { width: 14px; height: 14px; }
+.service-symbol .icon { width: 32px; height: 32px; }
+.trust-avatars .icon { width: 15px; height: 15px; }
+.stars, .review-score strong { display: flex; gap: 4px; }
+.stars .icon, .review-score .icon { width: 18px; height: 18px; }
+.btn span { display: inline-flex; }
+.skip-link { position: fixed; top: 8px; left: 16px; z-index: 2000; padding: 12px 20px; background: var(--navy); color: white; transform: translateY(-150%); border-radius: 4px; }
+.skip-link:focus { transform: translateY(0); }
+:focus-visible { outline: 3px solid var(--orange-dark); outline-offset: 5px; }
+.header { border-bottom: 1px solid var(--border); }
+.nav-links a { position: relative; padding: 12px 0; }
+.nav-links a[aria-current="location"] { color: #a4540b; }
+.nav-links a[aria-current="location"]::after { content: ""; position: absolute; bottom: 5px; left: 0; right: 0; height: 2px; background: var(--orange); }
+.hero h1 span { display: block; }
+.eyebrow-line { flex-shrink: 0; }
+.service-card, .review-card, .project-card, .contact-form { border-radius: 8px; }
+.service-card { display: flex; flex-direction: column; padding: 30px; }
+.service-card .text-link { margin-top: auto; align-self: flex-start; min-height: 44px; }
+.service-card p, .why-feature p { font-size: 14px; }
+.about-content > p, .review-card > p { font-size: 15px; }
+.trust-item strong { font-size: 13px; }
+.trust-item small { font-size: 12px; }
+.demo-note, .form-disclaimer { font-size: 12px; line-height: 1.7; }
+.form-group label { font-size: 13px; }
+.form-group input, .form-group textarea, .form-group select { font-size: 16px; min-height: 48px; border-radius: 4px; }
+.contact-form > p { font-size: 14px; }
+.contact-form .form-message { margin-bottom: 0; }
+.contact-form .form-message:empty { display: none; }
+.contact-detail a { overflow-wrap: anywhere; }
+.footer-links a, .footer-links span, .footer-top > div:first-child > p { font-size: 13px; }
+.footer-bottom { font-size: 12px; align-items: center; gap: 16px; }
+.footer-bottom > a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+@media (hover: none) {
+  .service-card:hover, .btn:hover { transform: none; }
+  .project-card:hover img { transform: none; }
+}
+@media (max-width: 1000px) and (min-width: 761px) {
+  .navbar { gap: 16px; }
+  .nav-phone { display: none; }
+}
+@media (max-width: 760px) {
+  :root { --header-height: 73px; }
+  .navbar { gap: 12px; }
+  .menu-toggle { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+  .nav-links { max-height: calc(100dvh - 72px); overflow-y: auto; overscroll-behavior: contain; }
+  .nav-links a { font-size: 15px; }
+  .nav-links a[aria-current="location"]::after { display: none; }
+  .hero { min-height: 590px; }
+  .hero-content { padding-top: 56px; padding-bottom: 112px; }
+  .hero-description { font-size: 16px; line-height: 1.75; }
+  .hero-bottom-inner { gap: 10px; align-items: center; font-size: 8px; letter-spacing: .6px; }
+  .hero-bottom-inner > span { text-align: center; }
+  .trust-item { align-items: flex-start; }
+  .trust-item strong { font-size: 12px; }
+  .trust-item small { font-size: 11px; }
+  .services-grid { grid-template-columns: 1fr; gap: 16px; }
+  .service-card { padding: 26px; min-height: auto; }
+  .service-card h3 { font-size: 20px; }
+  .service-card p { font-size: 14px; }
+  .service-top { margin-bottom: 18px; }
+  .section, .why-section, .reviews-section, .contact-section { padding: 64px 0; }
+  .area-section { padding: 60px 0; }
+  .review-score { margin-top: 24px; }
+  .footer-bottom { align-items: flex-start; }
+}
+@media (max-width: 360px) {
+  .container { width: calc(100% - 32px); }
+  .hero h1 { font-size: 40px; }
+  .eyebrow { font-size: 10px; letter-spacing: 1.4px; }
+  .trust-grid { grid-template-columns: 1fr; }
+  .hero-trust { gap: 18px; font-size: 11px; }
+}
